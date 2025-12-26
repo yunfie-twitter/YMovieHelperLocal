@@ -1,5 +1,10 @@
 FROM node:16
 # Install basic development tools
+# アーカイブミラーに書き換え
+RUN sed -i 's/deb.debian.org/archive.debian.org/g' /etc/apt/sources.list && \
+    sed -i 's|security.debian.org/debian-security|archive.debian.org/debian-security|g' /etc/apt/sources.list && \
+    sed -i '/buster-updates/d' /etc/apt/sources.list
+    
 RUN apt update && apt install -y less man-db sudo make
 
 # # Ensure default `node` user has access to `sudo`
